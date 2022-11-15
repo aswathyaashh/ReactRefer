@@ -7,7 +7,10 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "views/auth/Login.js";
 import Register from "views/auth/Register.js";
 import background from "assets/img/register_bg_2.png";
+//import logo from "assets/img/Flexkart.png";
+import "assets/styles/index.css";
 export default function Auth() {
+
   return (
     <>
       <main>
@@ -17,8 +20,9 @@ export default function Auth() {
             style={{
               backgroundImage:
                 `url(${background})`,
-            }}
-          ></div>
+            }}>
+          </div>
+         
           <Switch>
             <Route path="/auth/login" exact component={Login} />
             <Route path="/auth/register" exact component={Register} />
