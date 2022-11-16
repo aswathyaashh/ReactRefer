@@ -1,34 +1,71 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useHistory} from "react-router-dom";
 import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
 import axios from "axios";
 import { Result } from "postcss";
 
-export default function Login() {
+export default function Login() 
+{
   const history= useHistory();
-const [email, setEmail ] = useState('')
-const [password, setPassword] = useState('')
-  const handleEmail = (e) => {
-    setEmail(e.target.value)
-  }
+  const initialValues = {email:"",password:""};
+  const[formValues, setFormValues] =useState(initialValues );
+  const[formErrors, setFormErrors] =useState({} );
+  const [isSubmit, setIsSubmit]= useState(false);
+
+
+  const handleChange = (e) => {
+    const {name,value}=e.target;
+    setFormValues({...formValues,[name]: value});
+
+  };
+//const [email, setEmail ] = useState('')
+//const [password, setPassword] = useState('')
+  //const handleEmail = (e) => {
+    //setEmail(e.target.value)
+  //}
   //reqres dummy email and password
   //"email": "eve.holt@reqres.in",
     //"password": "cityslicka"
 
-  const handlePassword = (e) => {
-    setPassword(e.target.value)
-  }
+  //const handlePassword = (e) => {
+    //setPassword(e.target.value)
+  //}
+  const validate = (value) => {
+    const errors = {};
+    //const regex = hhh;
+    if(!value.email){
+      errors.email = "Email is required!";
+    }
+    // else if (!regex.test(value.email)){
+    //   errors.email = "this is not a valid email formt!";
+    // }
+    if(!value.password){
+      errors.password = "password is required!";
+    }  else if (value.password.length < 8 ){
+      errors.password= "Enter a password between 8-10 characters";
+    }
+    else if (value.password.length > 10 ){
+      errors.password= "Enter a password between 8-10 characters";
+    }
+    return errors;
 
+  };
 const handleApi = () => {
-  console.log({email,password})
+  //e.preventDefault();
+  console.log({formValues});
+  setFormErrors(validate(formValues));
+  setIsSubmit(true);
+};
+useEffect(() => {
+  if(Object.keys(formErrors).length === 0 && isSubmit){
   axios.post('https://reqres.in/api/login',{
-    email:email,
-    password:password
+    email:formValues.email,
+    password:formValues.password
   })
     .then(result => {
-      console.log(result.data)
+      console.log(result.data) 
       alert("successfuly Logged in")
       localStorage.setItem("token",result.data.token)
       history.push("/admin/Dashboard")
@@ -36,9 +73,9 @@ const handleApi = () => {
     .catch(error => {
       alert("service error")
       console.log(error)
-    })
+    })}
 
-}
+},[formErrors]);
 
 
   return (
@@ -56,6 +93,7 @@ const handleApi = () => {
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <form>
+                  
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -64,11 +102,13 @@ const handleApi = () => {
                       Email
                     </label>
                     <input
-                      type="email" value={email} onChange={handleEmail}
+                    name="email"
+                      type="email" value={formValues.email} onChange={handleChange}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
                     />
                   </div>
+                  <p>{formErrors.email}</p>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -76,10 +116,12 @@ const handleApi = () => {
                       Password
                     </label>
                     <input
-                      type="password" value={password} onChange={handlePassword}
+                    name="password"
+                      type="password" value={formValues.password} onChange={handleChange}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"/>
                   </div>
+                  <p>{formErrors.password}</p>
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
