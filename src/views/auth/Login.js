@@ -1,18 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
 import axios from "axios";
 import { Result } from "postcss";
 
 export default function Login() {
-  const Navigate= useNavigate()
+  const history= useHistory();
 const [email, setEmail ] = useState('')
 const [password, setPassword] = useState('')
   const handleEmail = (e) => {
     setEmail(e.target.value)
   }
+  //reqres dummy email and password
+  //"email": "eve.holt@reqres.in",
+    //"password": "cityslicka"
 
   const handlePassword = (e) => {
     setPassword(e.target.value)
@@ -26,8 +29,9 @@ const handleApi = () => {
   })
     .then(result => {
       console.log(result.data)
-      alert("success")
+      alert("successfuly Logged in")
       localStorage.setItem("token",result.data.token)
+      history.push("/admin/Dashboard")
     })
     .catch(error => {
       alert("service error")
