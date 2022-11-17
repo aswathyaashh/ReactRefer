@@ -21,16 +21,6 @@ export default function Login()
   const handleChange = (e) => {
     const {name,value}=e.target;
     setFormValues({...formValues,[name]: value});
-    const regex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    const emailValue=e.target.value
-    setFormValues(emailValue)
-    if(formValues.EmailId.match(regex))
-    {
-      console.log(true);
-    }
-    else{
-      console.log(false);
-    }
   };
 //const [email, setEmail ] = useState('')
 //const [password, setPassword] = useState('')
@@ -48,11 +38,16 @@ export default function Login()
   const validate = (value) => {
    
     const errors = {};
-   
-   
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+ 
     if(!value.EmailId){
       errors.EmailId = "Email is required!";
     }
+    else if (!regex.test(value.email)){
+        errors.EmailId = "this is not a valid email format!";
+        //https://localhost:7093/api/Login/AdminLogin
+        //https://reqres.in/api/login
+        }
  
     if(!value.password){
       errors.password = "password is required!";
