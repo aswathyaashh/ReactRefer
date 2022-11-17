@@ -19,7 +19,8 @@
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "^5.0.1",
-    "tailwindcss": "^2.2.19"
+    "tailwindcss": "^2.2.19",
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",

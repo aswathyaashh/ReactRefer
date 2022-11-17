@@ -5,20 +5,32 @@ import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
 import axios from "axios";
 import { Result } from "postcss";
+import validator from "validator";
 
 export default function Login() 
 {
   const history= useHistory();
-  const initialValues = {email:"",password:""};
+  const initialValues = {EmailId:"",password:""};
   const[formValues, setFormValues] =useState(initialValues );
   const[formErrors, setFormErrors] =useState({} );
   const [isSubmit, setIsSubmit]= useState(false);
+  
+
 
 
   const handleChange = (e) => {
     const {name,value}=e.target;
     setFormValues({...formValues,[name]: value});
-
+    const regex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const emailValue=e.target.value
+    setFormValues(emailValue)
+    if(formValues.EmailId.match(regex))
+    {
+      console.log(true);
+    }
+    else{
+      console.log(false);
+    }
   };
 //const [email, setEmail ] = useState('')
 //const [password, setPassword] = useState('')
@@ -32,15 +44,16 @@ export default function Login()
   //const handlePassword = (e) => {
     //setPassword(e.target.value)
   //}
+
   const validate = (value) => {
+   
     const errors = {};
-    //const regex = hhh;
-    if(!value.email){
-      errors.email = "Email is required!";
+   
+   
+    if(!value.EmailId){
+      errors.EmailId = "Email is required!";
     }
-    // else if (!regex.test(value.email)){
-    //   errors.email = "this is not a valid email formt!";
-    // }
+ 
     if(!value.password){
       errors.password = "password is required!";
     }  else if (value.password.length < 8 ){
@@ -53,16 +66,20 @@ export default function Login()
 
   };
 const handleApi = () => {
-  //e.preventDefault();
   console.log({formValues});
   setFormErrors(validate(formValues));
   setIsSubmit(true);
 };
-useEffect(() => {
+useEffect(() => 
+{
   if(Object.keys(formErrors).length === 0 && isSubmit){
-  axios.post('https://reqres.in/api/login',{
-    email:formValues.email,
-    password:formValues.password
+
+    axios({
+      url: 'https://localhost:7093/api/Login/AdminLogin',
+      method: 'POST',
+      data: { EmailId:formValues.EmailId,
+        password:formValues.password}
+     
   })
     .then(result => {
       console.log(result.data) 
@@ -73,7 +90,15 @@ useEffect(() => {
     .catch(error => {
       alert("service error")
       console.log(error)
-    })}
+    })
+  }
+
+    
+ 
+  // axios.post('https://localhost:7093/api/Login/AdminLogin',{
+  //   email:formValues.email,
+  //   password:formValues.password
+  // })
 
 },[formErrors]);
 
@@ -102,13 +127,13 @@ useEffect(() => {
                       Email
                     </label>
                     <input
-                    name="email"
-                      type="email" value={formValues.email} onChange={handleChange}
+                    name="EmailId"
+                      type="email" value={formValues.EmailId} onChange={handleChange}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
                     />
                   </div>
-                  <p>{formErrors.email}</p>
+                  <p>{formErrors.EmailId}</p>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
