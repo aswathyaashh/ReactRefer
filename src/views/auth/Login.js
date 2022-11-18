@@ -4,8 +4,6 @@ import { Link, useHistory} from "react-router-dom";
 import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
 import axios from "axios";
-import { Result } from "postcss";
-import validator from "validator";
 
 export default function Login() 
 {
@@ -22,41 +20,49 @@ export default function Login()
     const {name,value}=e.target;
     setFormValues({...formValues,[name]: value});
   };
-//const [email, setEmail ] = useState('')
-//const [password, setPassword] = useState('')
-  //const handleEmail = (e) => {
-    //setEmail(e.target.value)
-  //}
+
   //reqres dummy email and password
   //"email": "eve.holt@reqres.in",
     //"password": "cityslicka"
 
-  //const handlePassword = (e) => {
-    //setPassword(e.target.value)
-  //}
 
-  const validate = (value) => {
+  const validate = (values) => {
    
     const errors = {};
-    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
- 
-    if(!value.EmailId){
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/i;
+    
+    
+    if(!values.EmailId){
       errors.EmailId = "Email is required!";
     }
-    else if (!regex.test(value.email)){
-        errors.EmailId = "this is not a valid email format!";
-        //https://localhost:7093/api/Login/AdminLogin
-        //https://reqres.in/api/login
-        }
- 
-    if(!value.password){
-      errors.password = "password is required!";
-    }  else if (value.password.length < 8 ){
+     else if (!regex.test(values.EmailId)){
+       errors.EmailId = "this is not a valid email format!";
+     }
+     if(regex.test(values.EmailId) && values.EmailId !== "admin@gmail.com")
+     {
+      errors.EmailId="the email does not match the database";
+     }
+    if(!values.password){
+      errors.password = "password is required!"; 
+    }  else if (values.password.length < 8 ){
       errors.password= "Enter a password between 8-10 characters";
     }
-    else if (value.password.length > 10 ){
+    else if (values.password.length > 10 ){
       errors.password= "Enter a password between 8-10 characters";
     }
+    if (values.password.length === 8 && values.password !== "Admin123")
+    {
+      errors.password="the passsword doesnt match the database";
+    }
+    else if (values.password.length === 9 && values.password !== "Admin123")
+    {
+      errors.password="the passsword doesnt match the database";
+    }
+    else if (values.password.length === 10 && values.password !== "Admin123")
+    {
+      errors.password="the passsword doesnt match the database";
+    }
+
     return errors;
 
   };
@@ -128,7 +134,7 @@ useEffect(() =>
                       placeholder="Email"
                     />
                   </div>
-                  <p>{formErrors.EmailId}</p>
+                  {formErrors.EmailId && <div className="error-msg">{formErrors.EmailId}</div>}
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -141,7 +147,7 @@ useEffect(() =>
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"/>
                   </div>
-                  <p>{formErrors.password}</p>
+                  {formErrors.password && <div className="error-msg">{formErrors.password}</div>}
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
