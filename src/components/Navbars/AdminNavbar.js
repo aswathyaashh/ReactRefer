@@ -22,12 +22,14 @@ export default function Navbar() {
             onClick={(e) => e.preventDefault()}
           >
             Dashboard
-          </a>
-          <button
-          onClick={() =>{
-          localStorage.removeItem("token")
-           }}>logout
-        </button>
+          </a>{
+            localStorage.getItem("Token")?
+            <button onClick={() => {
+              localStorage.clear()
+              navigate.push("/Login")}}>
+            Logout</button>:<button>Login</button>
+          }
+        
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
             <div className="relative flex w-full flex-wrap items-stretch">
