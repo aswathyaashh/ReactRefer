@@ -1,4 +1,6 @@
 import React from "react";
+import { servicesVersion } from "typescript";
+
 
 export default function Register() {
   return (

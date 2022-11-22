@@ -1,8 +1,15 @@
 import React from "react";
-
+import { useEffect } from "react";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import {useHistory} from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useHistory()
+  useEffect(() => {
+    if (!localStorage.getItem("token")){
+      navigate.push("auth/Login")
+    }
+  },[])
   return (
     <>
       {/* Navbar */}
@@ -16,6 +23,11 @@ export default function Navbar() {
           >
             Dashboard
           </a>
+          <button
+          onClick={() =>{
+          localStorage.removeItem("token")
+           }}>logout
+        </button>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
             <div className="relative flex w-full flex-wrap items-stretch">

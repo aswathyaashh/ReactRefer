@@ -24,6 +24,7 @@ export default function Login()
   //reqres dummy email and password
   //"email": "eve.holt@reqres.in",
     //"password": "cityslicka"
+    //https://localhost:7093/api/Login/AdminLogin
 
 
   const validate = (values) => {
@@ -38,30 +39,11 @@ export default function Login()
      else if (!regex.test(values.EmailId)){
        errors.EmailId = "this is not a valid email format!";
      }
-     if(regex.test(values.EmailId) && values.EmailId !== "admin@gmail.com")
-     {
-      errors.EmailId="the email does not match the database";
-     }
+    
     if(!values.password){
       errors.password = "password is required!"; 
-    }  else if (values.password.length < 8 ){
-      errors.password= "Enter a password between 8-10 characters";
-    }
-    else if (values.password.length > 10 ){
-      errors.password= "Enter a password between 8-10 characters";
-    }
-    if (values.password.length === 8 && values.password !== "Admin123")
-    {
-      errors.password="the passsword doesnt match the database";
-    }
-    else if (values.password.length === 9 && values.password !== "Admin123")
-    {
-      errors.password="the passsword doesnt match the database";
-    }
-    else if (values.password.length === 10 && values.password !== "Admin123")
-    {
-      errors.password="the passsword doesnt match the database";
-    }
+    } 
+  
 
     return errors;
 
@@ -76,16 +58,17 @@ useEffect(() =>
   if(Object.keys(formErrors).length === 0 && isSubmit){
 
     axios({
-      url: 'https://localhost:7093/api/Login/AdminLogin',
+      url: 'https://reqres.in/api/login',
       method: 'POST',
-      data: { EmailId:formValues.EmailId,
-        password:formValues.password}
+      data: { email:formValues.EmailId,
+        password:formValues.password},
+        headers:{"Authorization":localStorage.getItem("Token")}
      
   })
     .then(result => {
       console.log(result.data) 
-      alert("successfuly Logged in")
-      localStorage.setItem("token",result.data.token)
+      // alert("successfuly Logged in")
+      localStorage.setItem("Token",result.data.token)
       history.push("/admin/Dashboard")
     })
     .catch(error => {
@@ -94,7 +77,13 @@ useEffect(() =>
     })
   }
 
-    
+  // let token = localStorage.getItem('Token')
+  // const { exp } = jwtDecode(token)
+  // const expirationTime = (exp * 1000) - 60000
+  // if (Date.now() >= expirationTime) {
+  //   localStorage.clear();
+  //   history.push('/login');
+  // }
  
   // axios.post('https://localhost:7093/api/Login/AdminLogin',{
   //   email:formValues.email,
