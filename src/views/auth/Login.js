@@ -1,97 +1,66 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
 import axios from "axios";
+import { TokenCheck } from "shared/Tokenchecker/TokenChecker";
+import { Loginredirect } from "shared/LoginRedirect/LoginRedirect";
 
-export default function Login() 
-{
-  const history= useHistory();
-  const initialValues = {EmailId:"",password:""};
-  const[formValues, setFormValues] =useState(initialValues );
-  const[formErrors, setFormErrors] =useState({} );
-  const [isSubmit, setIsSubmit]= useState(false);
-  
-
-
+export default function Login() {
+  const history = useHistory();
+  const initialValues = { EmailId: "", password: "" };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
-    const {name,value}=e.target;
-    setFormValues({...formValues,[name]: value});
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
-
-  //reqres dummy email and password
-  //"email": "eve.holt@reqres.in",
-    //"password": "cityslicka"
-    //https://localhost:7093/api/Login/AdminLogin
-
-
   const validate = (values) => {
-   
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/i;
-    
-    
-    if(!values.EmailId){
+
+    if (!values.EmailId) {
       errors.EmailId = "Email is required!";
+    } else if (!regex.test(values.EmailId)) {
+      errors.EmailId = "this is not a valid email format!";
     }
-     else if (!regex.test(values.EmailId)){
-       errors.EmailId = "this is not a valid email format!";
-     }
-    
-    if(!values.password){
-      errors.password = "password is required!"; 
-    } 
-  
+
+    if (!values.password) {
+      errors.password = "password is required!";
+    }
 
     return errors;
-
   };
-const handleApi = () => {
-  console.log({formValues});
-  setFormErrors(validate(formValues));
-  setIsSubmit(true);
-};
-useEffect(() => 
-{
-  if(Object.keys(formErrors).length === 0 && isSubmit){
-
-    axios({
-      url: 'https://reqres.in/api/login',
-      method: 'POST',
-      data: { email:formValues.EmailId,
-        password:formValues.password},
-        headers:{"Authorization":localStorage.getItem("Token")}
-     
-  })
-    .then(result => {
-      console.log(result.data) 
-      // alert("successfuly Logged in")
-      localStorage.setItem("Token",result.data.token)
-      history.push("/admin/Dashboard")
-    })
-    .catch(error => {
-      alert("service error")
-      console.log(error)
-    })
-  }
-
-  // let token = localStorage.getItem('Token')
-  // const { exp } = jwtDecode(token)
-  // const expirationTime = (exp * 1000) - 60000
-  // if (Date.now() >= expirationTime) {
-  //   localStorage.clear();
-  //   history.push('/login');
-  // }
- 
-  // axios.post('https://localhost:7093/api/Login/AdminLogin',{
-  //   email:formValues.email,
-  //   password:formValues.password
-  // })
-
-},[formErrors]);
-
+  const handleApi = () => {
+    console.log({ formValues });
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
+  };
+  useEffect(
+    () => {
+      if (Object.keys(formErrors).length === 0 && isSubmit) {
+        axios({
+          url: "https://localhost:7093/api/Login/AdminLogin",
+          method: "POST",
+          data: { EmailId: formValues.EmailId, password: formValues.password },
+        })
+          .then((result) => {
+            localStorage.setItem("token", result.data.token);
+            TokenCheck();
+            history.push("/admin/Dashboard");
+            
+          })
+          .catch((error) => {
+            alert("Service error exists...check Console");
+            console.log(error);
+          });
+      }
+    },
+    [formErrors]
+  );
 
   return (
     <>
@@ -108,7 +77,6 @@ useEffect(() =>
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <form>
-                  
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -117,37 +85,49 @@ useEffect(() =>
                       Email
                     </label>
                     <input
-                    name="EmailId"
-                      type="email" value={formValues.EmailId} onChange={handleChange}
+                      name="EmailId"
+                      type="email"
+                      value={formValues.EmailId}
+                      onChange={handleChange}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
                     />
                   </div>
-                  {formErrors.EmailId && <div className="error-msg">{formErrors.EmailId}</div>}
+                  {formErrors.EmailId && (
+                    <div className="error-msg">{formErrors.EmailId}</div>
+                  )}
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password">
+                      htmlFor="grid-password"
+                    >
                       Password
                     </label>
                     <input
-                    name="password"
-                      type="password" value={formValues.password} onChange={handleChange}
+                      name="password"
+                      type="password"
+                      value={formValues.password}
+                      onChange={handleChange}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"/>
+                      placeholder="Password"
+                    />
                   </div>
-                  {formErrors.password && <div className="error-msg">{formErrors.password}</div>}
+                  {formErrors.password && (
+                    <div className="error-msg">{formErrors.password}</div>
+                  )}
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button" onClick={handleApi}>
+                      type="button"
+                      onClick={handleApi}
+                    >
                       Sign In
                     </button>
                   </div>
                   <div className="Forgot">
-                        <Link to="/auth/register" className="text-blueGray-200 ">
-                          <small className="Forgot">Forgot password ?</small>
-                        </Link>
+                    <Link to="/auth/register" className="text-blueGray-200 ">
+                      <small className="Forgot">Forgot password ?</small>
+                    </Link>
                   </div>
                 </form>
               </div>
