@@ -1,11 +1,10 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,React } from "react";
 import { Link, useHistory } from "react-router-dom";
 import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
 import axios from "axios";
 import { TokenCheck } from "shared/Tokenchecker/TokenChecker";
-import { Loginredirect } from "shared/LoginRedirect/LoginRedirect";
+
 
 export default function Login() {
   const history = useHistory();
@@ -25,11 +24,11 @@ export default function Login() {
     if (!values.EmailId) {
       errors.EmailId = "Email is required!";
     } else if (!regex.test(values.EmailId)) {
-      errors.EmailId = "this is not a valid email format!";
+      errors.EmailId = "This is not a valid email format!";
     }
 
     if (!values.password) {
-      errors.password = "password is required!";
+      errors.password = "Password is required!";
     }
 
     return errors;
@@ -54,7 +53,7 @@ export default function Login() {
             
           })
           .catch((error) => {
-            alert("Service error exists...check Console");
+            alert("Enter the valid Email or Password");
             console.log(error);
           });
       }

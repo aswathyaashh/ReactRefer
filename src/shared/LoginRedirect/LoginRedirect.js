@@ -1,8 +1,10 @@
-import { Redirect } from "react-router";
-export function Loginredirect(){
-    return(
-        <div>
-          <Redirect  to ="/login" />
-        </div>
-      );
+import { useHistory } from "react-router";
+import { useEffect } from "react";
+export function LoginRedirect(){
+  const navigate = useHistory()
+  useEffect(() => {
+    if (!localStorage.getItem("token")){
+      navigate.push("/login")
+    }
+  },[])
 }

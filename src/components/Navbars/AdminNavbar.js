@@ -5,11 +5,6 @@ import {useHistory} from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useHistory()
-  useEffect(() => {
-    if (!localStorage.getItem("token")){
-      navigate.push("auth/Login")
-    }
-  },[])
   return (
     <>
       {/* Navbar */}
@@ -23,11 +18,10 @@ export default function Navbar() {
           >
             Dashboard
           </a>{
-            localStorage.getItem("Token")?
             <button onClick={() => {
               localStorage.clear()
-              navigate.push("/Login")}}>
-            Logout</button>:<button>Login</button>
+              navigate.push("/login")}}>
+            Logout</button>
           }
         
           {/* Form */}
