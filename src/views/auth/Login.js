@@ -6,12 +6,15 @@ import axios from "axios";
 import { TokenCheck } from "shared/Tokenchecker/TokenChecker";
 
 
+
 export default function Login() {
   const history = useHistory();
   const initialValues = { EmailId: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [Errors, setError] = useState(false);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +27,7 @@ export default function Login() {
     if (!values.EmailId) {
       errors.EmailId = "Email is required!";
     } else if (!regex.test(values.EmailId)) {
-      errors.EmailId = "This is not a valid email format!";
+      errors.EmailId = "Invalid email format!";
     }
 
     if (!values.password) {
@@ -53,14 +56,13 @@ export default function Login() {
             
           })
           .catch((error) => {
-            alert("Enter the valid Email or Password");
+            setError(true);
             console.log(error);
           });
       }
     },
     [formErrors]
   );
-
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -72,10 +74,12 @@ export default function Login() {
                   <img alt="..." className="Logo" src={logo} />
                   <h1 className="Title">FlexKart</h1>
                 </div>
+                {Errors &&<p className="error-msg">Invalid Email or Password</p>}
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <form>
+                  
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
