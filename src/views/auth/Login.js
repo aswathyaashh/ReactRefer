@@ -4,6 +4,7 @@ import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
 import axios from "axios";
 import { TokenCheck } from "shared/Tokenchecker/TokenChecker";
+import { Login_Url } from "shared/Url/Url";
 
 
 
@@ -45,20 +46,24 @@ export default function Login() {
     () => {
       if (Object.keys(formErrors).length === 0 && isSubmit) {
         axios({
-          url: "https://localhost:7093/api/Login/AdminLogin",
+          url: Login_Url,
           method: "POST",
           data: { EmailId: formValues.EmailId, password: formValues.password },
         })
-          .then((result) => {
-            localStorage.setItem("token", result.data.token);
-            TokenCheck();
-            history.push("/admin/Dashboard");
-            
-          })
-          .catch((error) => {
+        .then((result) => {
+          if (result.data.success===true){
+          localStorage.setItem("token", result.data.token);
+          TokenCheck();
+          history.push("/admin/Dashboard");
+          }
+          else{
             setError(true);
-            console.log(error);
-          });
+          }
+        })
+        .catch((error) => {
+          //setError(true);
+          console.log(error);
+        });
       }
     },
     [formErrors]

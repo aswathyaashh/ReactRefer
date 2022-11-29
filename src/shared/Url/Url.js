@@ -1,0 +1,1 @@
+export const Login_Url="https://localhost:7093/api/Login/AdminLogin"
