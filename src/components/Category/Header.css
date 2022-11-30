@@ -3,6 +3,7 @@
 
     
 }
+
 h1{
     color: rgba(182, 106, 7, 0.575);
     /* font-size: 600%; */
@@ -11,24 +12,17 @@ h1{
     
 }
 
-.btnalign{
-    align-self:flex-end;
-    flex:1;
-}
 .input-group{
-    display: flex;
-    margin-left: 4rem;
+    margin-left: 5rem;
     width: 15rem;
 }
-.alignClass{
-    flex:1;
-    width: 100%;
-}
-.container{
-    width: 100%;
+
+.header-buttons {
     display: flex;
+
 }
-.wrapper{
-    
-    align-self: flex-start;
+
+.add-cat{
+    margin-left:55%;
+
 }

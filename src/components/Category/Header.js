@@ -5,32 +5,41 @@ import Modal from "components/UICategory/Modal.js"
 
 
 const Header = (props) => {
-    const [state, setState] = useState(false);
-    const stateHandler = () => {
+
+  const [state, setState] = useState(false);
+  const stateHandler = () => {
     state ? setState(false) : setState(true);
     console.log(state)
   }
-  const onAddUser = (catName) => {
-    props.addUser(catName);
-  }
-
-return(
-    <div className = 'header'>
-        {state && <Modal onAddUser={onAddUser} onState ={stateHandler}/>}
-        <h1>CATEGORIES</h1>
-        <div className = 'input-group clearfix bg-secondary'>
-            <div className = 'alignClass input-group-append float-start'>
-                <input type = "text" className = "form-control" placeholder = "Search"/>
-                    <button className = 'btn btn-secondary' type = "button">
-                    <i className = 'fa fa-search'></i>    
-                    </button> 
+ 
+  return (
+    <div className='header'>
+        {state && <Modal  onState ={stateHandler}/>}
+        <h1>Catagories</h1>
+        <div className='header-buttons'>
+              {/* Search box */}
+              <div class="input-group">
+              <input type="text" className="form-control" placeholder="Search this blog" />
+              <div className="input-group-append">
+                <button className="btn btn-secondary" type="button">
+                <i className="fa fa-search"></i>
+                </button>
+              </div>
             </div>
-                    <button type = "button" className = 'btn btn-primary btnalign float-end'  onClick = {stateHandler}>
-                    <i className = 'fa-solid fa-plus'></i>
-                    Add Category
-                    </button>
+            <div className='add-cat'>
+            <button type="button" className="btn btn-primary" onClick={stateHandler} >
+            <i className="fa-solid fa-plus"></i>
+            Add Catagory
+            </button>
+          </div> 
+          
+         
         </div>
+        
+        
+
     </div>
-)
+  )
 }
+
 export default Header

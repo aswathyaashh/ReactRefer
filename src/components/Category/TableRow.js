@@ -7,7 +7,7 @@ const TableRow = (props) => {
             <div className = "col">{props.sl}</div>
             <div className = "col">{props.cat}</div>
             <div className = "col">
-                <i className = "fa-solid fa-pen-to-sqaure"></i>
+                <i className = "fa-solid fa-pen"></i>
                 <i className = "fa-solid fa-trash"></i>
             </div>
         </li>
