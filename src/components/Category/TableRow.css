@@ -8,6 +8,9 @@
     margin-bottom: 5px;
 }
 
+.col{
+    /* text-align: center; */
+}
 category-table-row i{
     padding: 0 20px 0 20px;
 }

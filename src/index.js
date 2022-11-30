@@ -16,6 +16,7 @@ import Landing from "views/Landing.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Login from "views/auth/Login";
+//import Categorynew from "views/admin/Categorynew";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -27,8 +28,9 @@ ReactDOM.render(
       <Route path="/landing" exact component={Landing} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/" exact component={Login} />
+      {/* <Route path="/categorynew" exact component={Categorynew} /> */}
       {/* add redirect for first page */}
-      <Redirect from="*" to="/" />
+      {/* <Redirect from="*" to="/" /> */}
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

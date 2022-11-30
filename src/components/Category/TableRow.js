@@ -13,4 +13,4 @@ const TableRow = (props) => {
         </li>
     )
 }
-export default TableRow
+export default TableRow;
