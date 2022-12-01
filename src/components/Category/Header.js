@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import './Header.css'
-import Modal from "components/UICategory/Modal.js"
+import Modal from "components/UICategory/AddModal.js"
 // import { useEffect } from 'react'
 
 
@@ -26,7 +26,7 @@ const Header = (props) => {
                 </button>
               </div>
             </div>
-            <div className='add-cat'>
+            <div className='add-category'>
             <button type="button" className="btn btn-primary" onClick={stateHandler} >
             <i className="fa-solid fa-plus"></i>
             Add Catagory

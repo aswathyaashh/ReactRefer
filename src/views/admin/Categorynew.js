@@ -1,28 +1,23 @@
-import React, {useState} from "react";
+import React, {useState, createContext} from "react";
 // import Datajson from "src/components/Category/Data.json";
 import Header from "components/Category/Header";
 import Table from "components/Category/Table";
 // import TableRow from "components/Category/TableRow";
-import "../../components/Category/Header.css";
 import Data from "components/Category/Data.json";
 import "views/admin/Categorynew.css";
 
+export const UserContext = createContext();
+
 function Categorynew(){
         const [data, setData] = useState(Data);
-        const addUserHandler = (catName) => {
-            setData((prevUsersList) => {
-                return [
-                    ...prevUsersList,
-                    { name: catName, id: data.length + 1 },
-                        ];
-                });
-        };
 
      return (
         <>
         <div className="Categorynew">
-        <Header addUser={addUserHandler}/>
-        <Table data={data}/>
+            <UserContext.Provider value={{data, setData}}>
+            <Header />
+        <Table />
+        </UserContext.Provider>
         </div>
         </>
 //         <>

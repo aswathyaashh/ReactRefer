@@ -1,22 +1,28 @@
-import React,{useState} from 'react';
-
+import React,{useState, useContext} from 'react';
+import {UserContext} from "views/admin/Categorynew";
 import Card from './Card';
 import Button from './Button';
 import classes from './Modal.module.css';
 
-const Modal = (props) => {
-    const [enteredUsername, setEnteredUsername] = useState('');
+const AddModal = (props) => {
+    const [category, setEnteredUsername] = useState('');
+    const {data, setData} = useContext(UserContext)
 
     const setCatHandler = (e) => {
         setEnteredUsername(e.target.value);
-        console.log(enteredUsername)
+        console.log(category)
     }
     const addUserHandler = (event) => {
         event.preventDefault();
-        if (enteredUsername.trim().length === 0) {
+        if (category.trim().length === 0) {
           return;
         }
-        props.onAddUser(enteredUsername);
+        setData((prevUserList) => {
+          return[
+            ...prevUserList,
+            {name : category, id : data.length + 1},
+          ];
+        });
         setEnteredUsername('');
         props.onState(false);
     };
@@ -32,7 +38,7 @@ const Modal = (props) => {
         </header>
         <div className={classes.content}>
           <label htmlFor="catName">Enter catagory name :</label>
-          <input type="text" onChange={setCatHandler} value={enteredUsername} />
+          <input type="text" onChange={setCatHandler} value={category} />
         </div>
         <footer className={classes.actions}>
           <Button onClick={closeModal}>Close</Button>
@@ -43,4 +49,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default AddModal;

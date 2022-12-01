@@ -1,9 +1,14 @@
 import React from "react";
 import './Table.css'
 import TableRow from './TableRow'
+import {useContext} from "react";
+import {UserContext} from "views/admin/Categorynew";
 
 
-const Table = (props) => {
+
+const Table = () => {
+    const {data} = useContext(UserContext)
+
     return(
         <div className = "category-table">
             <li className = "table-header">
@@ -12,8 +17,9 @@ const Table = (props) => {
                 <div className = "col">Actions</div>
             </li>
             {
-                props.data.map((user,id) => {
+                data.map((user,id) => {
                     return <TableRow
+                        rowId = {id}
                         key = {id}
                         sl = {user.id}
                         cat = {user.name}
