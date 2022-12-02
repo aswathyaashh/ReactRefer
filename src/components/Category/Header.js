@@ -15,11 +15,11 @@ const Header = (props) => {
   return (
     <div className='header'>
         {state && <Modal  onState ={stateHandler}/>}
-        <h1>Catagories</h1>
+        <h1>Categories</h1>
         <div className='header-buttons'>
               {/* Search box */}
               <div class="input-group">
-              <input type="text" className="form-control" placeholder="Search this blog" />
+              <input type="text" className="form-control" placeholder="Search" />
               <div className="input-group-append">
                 <button className="btn btn-secondary" type="button">
                 <i className="fa fa-search"></i>
@@ -29,7 +29,7 @@ const Header = (props) => {
             <div className='add-category'>
             <button type="button" className="btn btn-primary" onClick={stateHandler} >
             <i className="fa-solid fa-plus"></i>
-            Add Catagory
+            Add Category
             </button>
           </div> 
           

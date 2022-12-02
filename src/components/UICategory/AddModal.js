@@ -34,11 +34,12 @@ const AddModal = (props) => {
       <div className={classes.backdrop} />
       <Card className={classes.modal}>
         <header className={classes.header}> 
-          <h2>Add Catagory</h2>
+          <h2>Add Category</h2>
         </header>
         <div className={classes.content}>
-          <label htmlFor="catName">Enter catagory name :</label>
-          <input type="text" onChange={setCatHandler} value={category} />
+          <label htmlFor="catName">Enter category name : &nbsp; &nbsp; </label>
+          
+          <input type="text" onChange={setCatHandler} value={category}  />
         </div>
         <footer className={classes.actions}>
           <Button onClick={closeModal}>Close</Button>

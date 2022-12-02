@@ -37,7 +37,7 @@ const EditModal = (props) => {
             <h2>Edit Category</h2>
             </header>
             <div className={classes.content}>
-                <label htmlFor ="categoryname">Enter category name :</label>
+                <label htmlFor ="categoryname">Enter category name : &nbsp; &nbsp; </label>
                 <input type="text" name="category" onChange={setCatHandler} defaultValue ={props.value} />
             </div>
             <footer className={classes.actions}>

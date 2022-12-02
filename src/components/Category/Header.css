@@ -5,7 +5,7 @@
 }
 
 h1{
-    color: rgba(182, 106, 7, 0.575);
+    color: rgba(163, 95, 7, 0.575);
     /* font-size: 600%; */
     font-family: "Times New Roman", Times, serif;
     font-size:  60px !important;    
@@ -17,11 +17,16 @@ h1{
     width: 15rem;
 }
 
+
 .header-buttons {
     display: flex;
-
 }
 
+.btn-secondary{
+    color: white;
+    background-color: black;
+    border-color: black;
+}
 .add-category{
     margin-left:59.5%;
 
