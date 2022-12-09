@@ -3,6 +3,8 @@ import {UserContext} from "views/admin/Categorynew";
 import Card from './Card';
 import Button from './Button';
 import classes from './Modal.module.css';
+//import Axios from 'axios';
+//import { Category_Url } from "shared/Url/Url";
 
 const AddModal = (props) => {
     const [category, setEnteredUsername] = useState('');
@@ -26,6 +28,13 @@ const AddModal = (props) => {
         setEnteredUsername('');
         props.onState(false);
     };
+    //  const postcategory = () => {
+    //  Axios.post("https://localhost:7093/api/Category/Add").then(
+    //     (Response) => {
+    //       console.log(Response);
+    //     }
+    //  );
+    // };  
     const closeModal = () => {
       props.onState(true);
     }

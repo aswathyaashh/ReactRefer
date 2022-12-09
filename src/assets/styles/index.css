@@ -9,9 +9,9 @@
 height: 120px;
 width: 120px; 
 
-/* position: fixed;
-right:720px;
-top:20px; */
+position: relative;
+right: 22px;
+
 
 
 }
@@ -21,12 +21,14 @@ top:20px; */
     color:red;
 }
 .Title{
+    font-family: fantasy;
     font-style: italic;
-    font-weight: bold;
     font-size: 50px;
     padding-left: 10px;
     padding-top: 25px;
-    color:red;
+    color:#701d20;
+    position: relative;
+    right: 23px;
 }
 
 .Forgot{
