@@ -292,10 +292,10 @@ pre {
   margin: 0;
 }
 
-button {
-  background-color: transparent;
-  background-image: none;
-}
+/* button {
+  /* background-color: transparent;  */
+  /* background-image: none; */
+/*} */
 
 /**
  * Work around a Firefox/IE bug where the transparent `button` background

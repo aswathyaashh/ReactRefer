@@ -6,9 +6,8 @@ import classes from './Modal.module.css';
 import axios from "axios";
 
 const DeleteModal = (props) => {
-    const {setResponse,response} = useContext(UserContext)
+    const {setResponse} = useContext(UserContext)
     const deleteUrl = `https://localhost:7093/api/Category/delete/${props.sl}`
-    let token = localStorage.getItem("token");
 
     function deleteUserHandler () {
         axios.delete(deleteUrl)
