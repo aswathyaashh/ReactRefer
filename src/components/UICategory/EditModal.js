@@ -3,29 +3,31 @@ import{UserContext} from "views/admin/Categorynew";
 import Card from "./Card";
 import Button from "./Button";
 import classes from "./Modal.module.css";
+import axios from "axios";
 
 const EditModal = (props) => {
-    const [catagory, setcategory] = useState('');
-    const {data, setData} = useContext(UserContext)
+    const [category, setcategory] = useState('');
+    const {setResponse} = useContext(UserContext)
+    const editUrl = `https://localhost:7093/api/Category/${props.sl}`
     
     const setCatHandler = (e) => {
         setcategory(e.target.value);
     }
     const addUserHandler = (event) => {
         event.preventDefault();
-        if(catagory.trim().length === 0){
+        if(category.trim().length === 0){
             return;
         }
-        setData((data.map((data, id) => {
-            if(id === props.rowId){
-                data = {name : catagory, id : props.sl};
-            }
-            return data
-        })))
-        console.log(data)
-        setcategory('');
-        props.onEdit(false);
-    };
+
+        axios.put(editUrl, {
+            categoryName : category
+         })
+         .then(res => {setResponse(res.data)})
+          setcategory('');
+          props.onEdit(false);
+  
+      };
+        
     const closeModal = () => {
         props.onEdit(false);
     }

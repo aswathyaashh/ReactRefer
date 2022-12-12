@@ -3,38 +3,58 @@ import {UserContext} from "views/admin/Categorynew";
 import Card from './Card';
 import Button from './Button';
 import classes from './Modal.module.css';
-//import Axios from 'axios';
-//import { Category_Url } from "shared/Url/Url";
+import axios from 'axios';
 
 const AddModal = (props) => {
-    const [category, setEnteredUsername] = useState('');
-    const {data, setData} = useContext(UserContext)
+    const [category, setCategory] = useState('');
+    const [success, setSuccess] = useState();
+
+    const {setResponse} = useContext(UserContext)
 
     const setCatHandler = (e) => {
-        setEnteredUsername(e.target.value);
-        console.log(category)
+        setCategory(e.target.value);
+        
     }
     const addUserHandler = (event) => {
         event.preventDefault();
+
         if (category.trim().length === 0) {
           return;
         }
-        setData((prevUserList) => {
-          return[
-            ...prevUserList,
-            {name : category, id : data.length + 1},
-          ];
-        });
-        setEnteredUsername('');
-        props.onState(false);
+        const data = {categoryName : category}
+        const Url = `https://localhost:7093/api/Category/CategoryName/${category}`
+        const Add_Url = `https://localhost:7093/api/Category/Add`
+        let token = localStorage.getItem("token"); 
+         
+       
+        validate(Url,token)
+
+        if(success===false){ 
+          console.log("hai")
+          axios.post(Add_Url, data, {
+            headers: {
+              'Authorization': `Basic ${token}`
+            },
+          })
+          setResponse(category)
+          setCategory('');
+          props.onState(false);
+          alert("category added")
+    }
     };
-    //  const postcategory = () => {
-    //  Axios.post("https://localhost:7093/api/Category/Add").then(
-    //     (Response) => {
-    //       console.log(Response);
-    //     }
-    //  );
-    // };  
+       
+    const validate = (Url,token) => {
+      axios({
+        url: Url ,
+        method: "get",
+        headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        },
+        })
+        .then((response) =>{
+        setSuccess(response.data.success)})
+    }
     const closeModal = () => {
       props.onState(true);
     }
@@ -47,8 +67,8 @@ const AddModal = (props) => {
         </header>
         <div className={classes.content}>
           <label htmlFor="catName">Enter category name : &nbsp; &nbsp; </label>
-          
           <input type="text" onChange={setCatHandler} value={category}  />
+          {success &&<p>category already exists</p>}
         </div>
         <footer className={classes.actions}>
           <Button onClick={closeModal}>Close</Button>

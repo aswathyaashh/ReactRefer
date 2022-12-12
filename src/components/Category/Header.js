@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import './Header.css'
 import Modal from "components/UICategory/AddModal.js"
-// import { useEffect } from 'react'
 
 
 const Header = (props) => {
@@ -9,7 +8,7 @@ const Header = (props) => {
   const [state, setState] = useState(false);
   const stateHandler = () => {
     state ? setState(false) : setState(true);
-    console.log(state)
+  
   }
  
   return (

@@ -16,12 +16,12 @@ const TableRow = (props) => {
     return(
         <div>
             {edit && <EditModal onEdit = {setEdit} value = {props.cat} sl = {props.sl} rowId = {props.rowId}/>}
-            {ondelete && <DeleteModal onDelete = {setOnDelete} value = {props.cat} sl = {props.sl} rowId = {props.rowId} />}
+            {ondelete && <DeleteModal onDelete = {setOnDelete} value = {props.cat} sl = {props.sl}  />}
        <li className="category-table-row">
             <div className = "col">{props.sl}</div>
             <div className = "col">{props.cat}</div>
             <div className = "col">
-                <i className = "fa-solid fa-pen" onClick={onEdit}></i>
+                <i className = "fa-solid fa-pen-to-square" onClick={onEdit}></i>
                 <i className = "fa-solid fa-trash" onClick={onDelete}></i>
             </div>
         </li>
