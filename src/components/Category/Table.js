@@ -2,9 +2,7 @@ import React from "react";
 import './Table.css'
 import TableRow from './TableRow'
 import {useContext} from "react";
-import {UserContext} from "views/admin/Categorynew";
-
-
+import {UserContext} from "views/admin/CategoryPage";
 
 const Table = () => {
     const {data} = useContext(UserContext)
@@ -29,4 +27,5 @@ const Table = () => {
         </div>
     )
 }
+
 export default Table

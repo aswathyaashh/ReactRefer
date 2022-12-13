@@ -1,19 +1,19 @@
-.Categorynew {
+.CategoryPage {
     text-align: center;
   }
   
-  .Categorynew-logo {
+  .CategoryPage-logo {
     height: 40vmin;
     pointer-events: none;
   }
   
   @media (prefers-reduced-motion: no-preference) {
-    .Categorynew-logo {
-      animation: Categorynew-logo-spin infinite 20s linear;
+    .CategoryPage-logo {
+      animation: CategoryPage-logo-spin infinite 20s linear;
     }
   }
   
-  .Categorynew-header {
+  .CategoryPage-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -26,11 +26,11 @@
   i{
     padding: 0 5px 0 5px;
   }
-  .Categorynew-link {
+  .CategoryPage-link {
     color: #61dafb;
   }
   
-  @keyframes Categorynew-logo-spin {
+  @keyframes CategoryPage-logo-spin {
     from {
       transform: rotate(0deg);
     }

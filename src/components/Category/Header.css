@@ -1,22 +1,17 @@
 .header{
-    padding-top: 100px;
-
-    
+    padding-top: 100px;  
 }
 
 h1{
     color: rgba(163, 95, 7, 0.575);
-    /* font-size: 600%; */
     font-family: "Times New Roman", Times, serif;
-    font-size:  60px !important;    
-    
+    font-size:  60px !important;     
 }
 
 .input-group{
     margin-left: 4rem;
     width: 15rem;
 }
-
 
 .header-buttons {
     display: flex;
@@ -27,7 +22,7 @@ h1{
     background-color: black;
     border-color: black;
 }
+
 .add-category{
     margin-left:59.5%;
-
 }

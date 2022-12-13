@@ -1,12 +1,12 @@
 import React, {useState, createContext, useEffect} from "react";
 import Header from "components/Category/Header";
 import Table from "components/Category/Table";
-import "views/admin/Categorynew.css";
+import "views/admin/CategoryPage.css";
 import  axios  from "axios";
 
 export const UserContext = createContext();
 
-function Categorynew(){
+function CategoryPage(){
         const [data, setData] = useState([]);
         const [response, setResponse] = useState('');
        
@@ -28,7 +28,7 @@ function Categorynew(){
         
         return (
         <>
-        <div className="Categorynew">
+        <div className="CategoryPage">
             <UserContext.Provider value={{data,setData,response,setResponse}}>
             <Header />
             <Table />
@@ -37,4 +37,4 @@ function Categorynew(){
         </>
 );
 }
-export default Categorynew;
+export default CategoryPage;

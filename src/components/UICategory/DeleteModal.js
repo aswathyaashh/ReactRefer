@@ -1,5 +1,5 @@
 import React,{useContext} from "react";
-import { UserContext } from "views/admin/Categorynew";
+import { UserContext } from "views/admin/CategoryPage";
 import Card from "./Card";
 import Button from "./Button";
 import classes from './Modal.module.css';
@@ -14,9 +14,11 @@ const DeleteModal = (props) => {
         .then(res => {setResponse(res.data)})
         props.onDelete(false);
     };
+
     const closeModal = () => {
         props.onDelete(false);
     }
+
     return (
         <div>
             <div className= {classes.backdrop} />
@@ -29,8 +31,8 @@ const DeleteModal = (props) => {
                     <Button onClick = {closeModal}>No</Button>
                 </footer>
             </Card>
-            
         </div>
     );
 };
+
 export default DeleteModal;

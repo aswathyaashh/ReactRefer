@@ -13,6 +13,7 @@ const TableRow = (props) => {
     const onDelete = ()=> {
         setOnDelete(true);
     }
+
     return(
         <div>
             {edit && <EditModal onEdit = {setEdit} value = {props.cat} sl = {props.sl} rowId = {props.rowId}/>}
@@ -28,4 +29,5 @@ const TableRow = (props) => {
         </div>
     )
 }
+
 export default TableRow;
