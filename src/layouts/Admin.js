@@ -15,6 +15,7 @@ import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 import CategoryPage from "views/admin/CategoryPage";
+import Brand from "views/admin/Brand";
 
 export default function Admin() {
   return (
@@ -31,6 +32,8 @@ export default function Admin() {
             <Route path="/admin/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
             <Route path= "/admin/CategoryPage" exact component={CategoryPage} />
+            <Route path= "/admin/Brand" exact component={Brand} />
+
             <Redirect from="/admin" to="/admin/dashboard" />
            
           </Switch>

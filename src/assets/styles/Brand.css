@@ -1,0 +1,106 @@
+.Brand {
+    text-align: center;
+  }
+  
+  .Brand-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .Brand-logo {
+      animation: Categorynew-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .Brand-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  i{
+    padding: 0 5px 0 5px;
+  }
+  .Brand-link {
+    color: #61dafb;
+  }
+
+  .defaultlogo{
+    display: flex;
+    /* //flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    /* margin: o; */
+    /* padding-left: 200px; */
+    margin-left: 200px;
+    margin:auto
+    /* height: 150px;
+    width:150px */
+
+  }
+  
+  .upload{
+    margin-left: 140px;
+  }
+
+
+.actioncolumn{
+
+height:150px;
+width: 150px;
+margin:auto
+
+
+}
+
+.headcolour{
+  background-color: #3C4048;
+}
+
+
+.rowcolour{
+  background-color: #EDE4E0;
+}
+
+.headingline{
+  color: white;
+}
+
+.addbutton{
+  text-align:right;
+  
+}
+.buttonadd{
+  text-align: left;
+  align-items: flex-end;
+  right:77%;
+  margin:auto
+}
+
+.invalid-field{
+  border-color: #dc3545;
+  color: #dc3545;
+  background-color: #fff;
+}
+
+.buttonadd{
+  justify-content: flex-end;
+}
+
+
+
+
+
+  @keyframes Brand-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
