@@ -2,6 +2,7 @@ import { useState, useEffect,React } from "react";
 import { Link, useHistory } from "react-router-dom";
 import logo from "assets/img/Flexkart.png";
 import "assets/styles/index.css";
+import swal from "sweetalert";
 import axios from "axios";
 import { TokenCheck } from "shared/Tokenchecker/TokenChecker";
 import { Login_Url } from "shared/Url/Url";
@@ -54,6 +55,11 @@ export default function Login() {
           if (result.data.success===true){
           localStorage.setItem("token", result.data.token);
           TokenCheck();
+          swal({
+            title: "Success",
+            text: "Login Successfull",
+            icon: "success",
+          });
           history.push("/admin/Dashboard");
           }
           else{

@@ -3,7 +3,6 @@ import { Alert, Form, Modal, ModalFooter, Table } from "react-bootstrap";
 import { Button, ButtonToolbar } from "react-bootstrap";
 import "assets/styles/Brand.css"
 import axios from "axios";
-import swal from 'sweetalert';
 //import { Reqres_Url } from "shared/Url/Url";
 import { Brand_Table_Get } from "shared/Url/Url";
 import defaultImageSrc from "assets/img/defaultLogo.png";
@@ -17,21 +16,17 @@ const initialFieldValues = {
   imageFile: null,
 };
 
-const BrandCopy = () => {
+const Product = () => {
   const [brands, setBrands] = useState([]);
   const [brand, setEnteredBrandName] = useState("");
   const [values, setValues] = useState(initialFieldValues);
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
-
   const [errors, setErrors] = useState({});
   const [check, setCheck] = useState(true);
   const [checker, setChecker] = useState(false);
 
   const [recordForEdit, setRecordForEdit] = useState(initialFieldValues);
-  const [recordForDelete, setRecordForDelete] = useState(initialFieldValues);
-
 
   const employeeAPI = (url = "https://localhost:7093/api/Brand") => {
     return {
@@ -53,11 +48,6 @@ const BrandCopy = () => {
             employeeAPI()
               .add(formData)
               .then((res) => {
-                swal({
-                  title: "Success",
-                  text: "You have added a brand!",
-                  icon: "success",
-                });
                 onSuccess();
                 refreshList();
                 console.log("logging");
@@ -79,11 +69,6 @@ const BrandCopy = () => {
             employeeAPI()
               .update(formData.get("brandId"), formData)
               .then((response) => {
-                swal({
-                  title: "Success",
-                  text: "Brand Updated Successfully",
-                  icon: "success",
-                });
                 onSuccess();
                 refreshList();
                 setValues(initialFieldValues);
@@ -93,8 +78,6 @@ const BrandCopy = () => {
                 Alert("brand exists");
                 console.log(error);
               });
-          } else {
-            setChecker(true);
           }
         });
     }
@@ -150,35 +133,19 @@ const BrandCopy = () => {
     });
     setEnteredBrandName(e.target.value);
     // console.log(brand);
-    console.log("add ID", values.brandId);
+    //console.log("add ID", values.brandId);
   };
 
-  const handleShow = () => {
-    setShow(true)
-    setValues(initialFieldValues)
-    ;};
+  const handleShow = () => setShow(true);
   const handleShowEdit = () => setShowEdit(true);
-  const handleShowDelete = () => setShowDelete(true);
-
   const handleClose = () => {
     setShow(false);
-    setChecker(false)
     resetForm();
   };
   const handleCloseEdit = () => {
     setShowEdit(false);
-    setChecker(false);
-    //setValues(initialFieldValues);
+    setValues(initialFieldValues);
   };
-
-  const handleCloseDelete = () => {
-    setShowDelete(false);
-  };
-
-
-
-
-
 
   const refreshList = () => {
     let token = localStorage.getItem("token");
@@ -203,7 +170,6 @@ const BrandCopy = () => {
     let temp = {};
     temp.brandName = values.brandName == "" ? false : true;
     temp.imageSrc = values.imageSrc == defaultImageSrc ? false : true;
-    console.log("checkValidate",temp.brandName);
     setErrors(temp);
     setCheck(temp.brandName);
     return Object.values(temp).every((x) => x == true);
@@ -217,8 +183,6 @@ const BrandCopy = () => {
   };
 
   const handleFormSubmit = (e) => {
-    console.log("EditbrandName",values.brandName);
-    console.log("submit");
     e.preventDefault();
     if (validate()) {
       const formData = new FormData();
@@ -242,31 +206,17 @@ const BrandCopy = () => {
     setRecordForEdit(data);
   };
 
-  const showDeleteRecordDetails = (data) => {
-    handleShowDelete();
-    setRecordForDelete(data);
-  };
   //console.log("brand-copy error  295", recordForEdit);
 
   useEffect(() => {
-    if (recordForEdit !== []) setValues(recordForEdit);
+    if (recordForEdit != []) setValues(recordForEdit);
   }, [recordForEdit]);
 
   const onDelete = (e, id) => {
-    e.preventDefault();
-   // if (window.confirm("Delete the item?"))
+    if (window.confirm("Delete the item?"))
       employeeAPI()
         .delete(id)
-        .then((res) => {
-          refreshList()  
-          console.log("deleted")
-          swal({
-            title: "Deleted",
-            text: "Brand Deleted Successfully",
-            icon: "success",
-          });
-          setShowDelete(false)
-        })
+        .then((res) => refreshList())
         .catch((error) => console.log(error));
   };
 
@@ -280,14 +230,6 @@ const BrandCopy = () => {
       <br />
       <br />
       <ButtonToolbar className="buttonadd">
-      <div class="input-group searchbutton">
-                <input type="text" className="form-control" placeholder="Search" />
-                <div className="input-group-append">
-                <button className="btn btn-secondary" type="button">
-                  <i className="fa fa-search"></i>
-                </button>
-                </div>
-                </div>
         <Button
           onClick={handleShow}
           variant="primary"
@@ -297,26 +239,24 @@ const BrandCopy = () => {
         </Button>
       </ButtonToolbar>
 
-      <Table className="table-space  tablemain"  size="sm">
-      <div className="table-header1">  <thead className="headcolour tablehead">
-          <th className="headingline headingline1"><div className="headvalue">BrandID</div></th>
-          <th className="headingline headingline2"><div className="headvalue">BrandName</div></th>
+      <Table className="mt-4" striped bordered hover size="sm">
+        <thead className="headcolour">
+          <th className="headingline">BrandID</th>
+          <th className="headingline">BrandName</th>
           {/* <th className="headingline">BrandLogo</th> */}
-          <th className="headingline headingline3"><div className="headvalue">Actions</div></th>
-        </thead></div>
-        <div className="table-body1">
-        <tbody className="table-body2">
+          <th className="headingline">Actions</th>
+        </thead>
+        <tbody>
           {brands.map((brd) => (
-            <tr key={brd.brandId} className="rowcolour brandrows">
-              <div className="Row-control1">
-              <td className="rowValues-1"><div className=" row-values">{brd.brandId}</div></td>
-              <td className="rowValues-2"><div className=" row-values">{brd.brandName}</div></td>
+            <tr key={brd.brandId} className="rowcolour">
+              <td>{brd.brandId}</td>
+              <td>{brd.brandName}</td>
               {/* <td>{brd.imageSrc}</td> */}
               {/* <td>edit/delete</td> */}
-              <td className="actioncolumn"><div className=" row-values">
+              <td className="actioncolumn">
                 <button
                   type="button"
-                  className="btn btn-light mr-2"
+                  className="btn btn-light mr-5"
                   onClick={() => {
                     showRecordDetails(brd);
                   }}
@@ -339,10 +279,7 @@ const BrandCopy = () => {
                 <button
                   type="button"
                   className="btn btn-light mr-1"
-                  onClick={() => {
-                    showDeleteRecordDetails(brd);
-                  }}
-                  //onClick={(e) => onDelete(e, parseInt(brd.brandId))}
+                  onClick={(e) => onDelete(e, parseInt(brd.brandId))}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -355,13 +292,10 @@ const BrandCopy = () => {
                     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                   </svg>
                 </button>
-                </div>
               </td>
-              </div>
             </tr>
           ))}
         </tbody>
-        </div>
       </Table>
 
       <Modal show={show} onHide={handleClose}>
@@ -450,7 +384,7 @@ const BrandCopy = () => {
                 defaultValue={recordForEdit.brandName}
                 onChange={handleInputChange}
               />
-              {checker && <p className="error-msg"> Brand already exists</p>}
+              {/* {!check && <p className="error-msg">No BrandName added</p>} */}
             </div>
             <ModalFooter>
               <Button type="submit">Edit</Button>
@@ -461,54 +395,9 @@ const BrandCopy = () => {
           </Form>
         </Modal.Body>
       </Modal>
-
-      <Modal
-        show={showDelete}
-        onHide={handleCloseDelete}
-        //  recordForEdit={recordForEdit}
-        // onSubmit={handleFormSubmit}
-      >
-        <Modal.Header>
-          <Modal.Title>Delete Brand</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={(e) => onDelete(e, parseInt(recordForDelete.brandId))}>
-            <div>
-              <div>
-                Are you sure to Delete the selected Brand?
-              </div>
-              <br/>
-              <img
-                alt="brand logo"
-                className="defaultlogo"
-                src={recordForDelete.imageSrc}
-                width={70}
-                height={70}
-              />
-              <br />
-              <div className="delete_text">
-              <label htmlFor="brdName" className="labeldelete">Brand :</label>
-              <input
-                type="text"
-                className="deletetextvalue"
-                disabled
-                defaultValue={recordForDelete.brandName}
-              />
-              </div>
-            </div>
-            <br/>
-            <ModalFooter>
-              <Button type="submit" variant="danger">Delete</Button>
-              <Button variant="primary" onClick={handleCloseDelete}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Form>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };
 
-export default BrandCopy;
+export default Product;
 

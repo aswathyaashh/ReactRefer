@@ -46,6 +46,8 @@
   
   .upload{
     margin-left: 140px;
+  /* position: relative; */
+  width:fit-content
   }
 
 
@@ -53,22 +55,113 @@
 
 height:150px;
 width: 150px;
-margin:auto
+margin:auto;
+border-color: #fff;
 
 
 }
 
 .headcolour{
-  background-color: #3C4048;
+  background-color: #070708;
 }
 
 
 .rowcolour{
   background-color: #EDE4E0;
+  height:100px;
 }
 
 .headingline{
   color: white;
+  text-align: center;
+  
+}
+
+/* .headingline1{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center ;
+} */
+
+.headvalue{
+  border: 0;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+.headingline1{
+  padding-bottom: 90px;
+  width:5%;
+  height: 60px;
+}
+
+
+.headingline2{
+  padding: 30px;
+  width:5%;
+}
+
+.headingline3{
+  padding: 30px;
+  width:5%;
+}
+.brandrows{
+  background-color: #cab8b0;
+ border-width: 5px;
+}
+
+.actioncolumn{
+  text-align: center;
+  width:311px
+}
+
+.tablemain{
+  /* background-color: white; */
+ margin: auto;
+}
+
+/* .table{
+  background-color: white;
+} */
+
+.tablehead{
+  height:80px;
+border-radius: 5px;
+}
+
+.table-header1{
+  width: 1094px;
+  border-radius: 3px;
+  padding-left: 115px;
+}
+
+.table-body1{
+  width: 1100px;
+  border-radius: 3px;
+  padding-left: 110px;
+}
+
+.table-body2{
+  width: 1100px;
+  border-radius: 3px;
+  background-color: #EDE4E0;
+}
+
+.rowValues-1{
+  text-align: center;
+  height:10px;
+  padding-top: 30px;
+  width:322.59px;
+}
+.rowValues-2{
+  text-align: center;
+  height:min-content;
+  padding-top: 30px;
+  width:350.3px;
+}
+
+.row-values{
+  padding: 30px;
 }
 
 .addbutton{
@@ -77,9 +170,6 @@ margin:auto
 }
 .buttonadd{
   text-align: left;
-  align-items: flex-end;
-  right:77%;
-  margin:auto
 }
 
 .invalid-field{
@@ -88,12 +178,52 @@ margin:auto
   background-color: #fff;
 }
 
-.buttonadd{
-  justify-content: flex-end;
+.searchbutton{
+  margin-right: 720px;
 }
 
 
 
+
+
+.buttonadd{
+  justify-content: flex-end;
+}
+
+.Titles{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 60px;
+  color: rgba(182, 106, 7, 0.575);
+  font-family: "Times New Roman", Times, serif;
+}
+
+.delete_text{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.table-space{
+  margin-top: 60px;
+}
+
+.labeldelete{
+  margin:auto;
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+.deletetextvalue{
+  line-height: normal;
+  padding-top: 6px;
+  width: 30%;
+}
+
+.Row-control1{
+  height:60px;
+}
 
 
   @keyframes Brand-logo-spin {
